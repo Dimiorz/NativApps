@@ -46,7 +46,7 @@ if (isset($_SESSION['login'])) {
                                 <p> DeVeLopment easy</p>
                                 <br>
                                 <h5>Integrantes</h5>
-                                <p><strong> Dayana Rodrigues de Arco</strong> <br> Aprendiz ADSI de la ficha 1905372</p>
+                                <p><strong> Dayana Rodriguez de Arco</strong> <br> Aprendiz ADSI de la ficha 1905372</p>
 
                                 <p><strong>Kelvin Martinez</strong> <br> Aprendiz ADSI de la ficha 1905372</p>
 
@@ -86,7 +86,7 @@ if (isset($_SESSION['login'])) {
         <div class="banner">
             <!-- Botones dentro del banner -->
             <div class="imagen-banner">
-                <img src="img/1755.jpg" class="img-fluid img-banner" alt="Responsive image">
+                <img src="img/1755.png" class="img-fluid img-banner" alt="Responsive image">
             </div>
             <a type="button" class="btn btn-outline-dark contactanos-btn pt-2" href="contactenos.html">Contactenos!</a>
             <a type="button" class="btn btn-outline-dark boton-productos pt-2" href="productos.html">Nuestros
