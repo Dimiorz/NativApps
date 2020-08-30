@@ -12,21 +12,7 @@ if (isset($_POST['registrar'])) {
     $email = $_POST['email'];
     $contrasena = $_POST['contrasena'];
     $addrol = $_POST['addrol'];
-
-    // Validar que la cedula y el email no se repitan
-    // $validarCedula = @pg_query($conexion, "SELECT cedula FROM usuarios WHERE cedula=" . $cedula);
-    // if (pg_num_rows($validarCedula) > 0) {
-    //     echo "el nro de cedula ya existe";
-    //     echo ("<script>alert('El numero de cedula no existe')</script>");
-    // }
-
-    // $validarEmail = mysqli_query($conexion, "select email
-    // from usuarios where email ='$email'");
-    // if ($validarCedula) {
-    //     echo ("<script>alert('Esta cedula ya se encuentra registrada');</script>");
-    // } else if ($validarEmail) {
-    //     echo ("<script>alert('Este Correo ya se encuentra registrado');</script>");
-    // }
+    $avatar_id = 1;
 
     // Validaciones
     if ($cedula == "" || $primer_nombre == "" || $area == "" || $email == "" || $contrasena == "" || $primer_nombre == "") {
@@ -34,19 +20,21 @@ if (isset($_POST['registrar'])) {
         echo ("se está metiendo en el condicional de validacion en php");
         // header('Location: ../../nuevousuario.php');
         // echo ("<script src='../js/validaciones.js'></script>"); 
-        die();
     }
 
     // Query
-    $query = "INSERT INTO usuarios(cedula,area,primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,email,contrasena,rol) VALUES ('$cedula','$area','$primer_nombre','$segundo_nombre','$primer_apellido','$segundo_apellido','$email','$contrasena','$addrol')";
+    $query = "INSERT INTO usuarios(cedula,area,primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,email,contrasena,rol,avatar_id) VALUES ('$cedula','$area','$primer_nombre','$segundo_nombre','$primer_apellido','$segundo_apellido','$email','$contrasena','$addrol','$avatar_id')";
 
     //realizas la consulta en al base de datos
     $resultado = mysqli_query($conexion, $query);
 
 
     if (!$resultado) {
-        header("location: ../../usuarios.php");
-        die();
+        // header("location: ../../usuarios.php");
+        
+        die(header("location: error.html")."Error". mysqli_error($conexion));
+
+// echo '';
     }
 }
 ?>
@@ -215,6 +203,7 @@ if (!isset($sesion)) {
             </div>
 
             <input hidden id="mostrarCC" value="<?php echo $cedula ?>"></input>
+            <input hidden id="mostrarNombre" value="<?php echo $primer_nombre ?>"></input>
 
 
             <!-- /. ROW  -->
@@ -231,14 +220,19 @@ if (!isset($sesion)) {
     <script src="../js/bootstrap.min.js"></script>
     <!-- METISMENU SCRIPTS -->
     <script src="../js/jquery.metisMenu.js"></script>
+    <!-- CUSTOM SCRIPTS -->
+    <script src="../js/custom.js"></script>
+
     <!-- CDN Jquery-->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <!-- Script Toastr -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script src="../js/validaciones.js"></script>
     <!-- CUSTOM SCRIPTS -->
     <script src="../js/custom.js"></script>
-    <script src="../js/validaciones.js"></script>
+    <!-- <script src="../js/validaciones.js"></script> -->
 
     <!-- Alerta borrar -->
     <script type="text/javascript">
@@ -271,8 +265,10 @@ if (!isset($sesion)) {
     <!-- Alerta usuario actualizado -->
     <script>
         var cedula = document.getElementById('mostrarCC').value;
+        var mostrarNombre = document.getElementById('mostrarNombre').value;
         document.readyState =
-            toastr["success"]("El usuario con C.C #" + cedula + " ha sido guardado exitosamente.", "Usuario guardado")
+            toastr["success"]("El usuario " + mostrarNombre + " con C.C #" + cedula + " ha sido guardado exitosamente.",
+                "Usuario guardado")
 
         toastr.options = {
             "closeButton": false,
